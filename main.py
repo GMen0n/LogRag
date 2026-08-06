@@ -6,12 +6,22 @@ from dotenv import load_dotenv
 from ingestion import OpenStackLogIngestor
 from embeddings import LogVectorStore
 from rag_engine import RAGDiagnosticEngine
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the environment variables (.env)
 load_dotenv()
 
 # Initialize our core application
 app = FastAPI(title="LogRAG Sentinel API")
+
+# Allow the React frontend to communicate with the FastAPI backend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, change this to your exact frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize our singleton engine instances globally so they stay in memory 
 # while the server is running.
