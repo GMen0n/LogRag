@@ -9,10 +9,7 @@ class LogVectorStore:
     an in-memory FAISS index for efficient semantic similarity search.
     """
     def __init__(self):
-        print("Loading local FastEmbed model (BAAI/bge-small-en-v1.5)...")
-        
-        # FastEmbed runs completely offline on the CPU, so no API keys,
-        # internet connection, or external embedding service is required.
+        # Note: the embedding model may be downloaded/cached on first use; after that it runs locally on CPU.
         self.embedding_model = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
         
         # The selected BAAI embedding model produces fixed-size
